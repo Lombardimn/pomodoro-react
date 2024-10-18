@@ -5,9 +5,7 @@
 
 @layer base {
   body {
-    @apply bg-gray-300;
-    margin: 0;
-    padding: 0;
+    @apply bg-background-dark;
     box-sizing: border-box;
     height: 100vh;
   }
