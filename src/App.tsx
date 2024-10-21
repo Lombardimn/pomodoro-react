@@ -1,6 +1,6 @@
 import { Navbar } from "@/components"
 import { BrowserRouter as Router } from "react-router-dom"
-import { useGlobalContext } from "./context"
+import { useGlobalContext } from "@/context"
 import { useEffect } from "react"
 
 function App() {
@@ -10,9 +10,11 @@ function App() {
     console.log(value)
     if (value) {
       localStorage.setItem("theme", value)
-      document.documentElement.classList.remove("light")
-      document.documentElement.classList.remove("dark")
-      document.documentElement.classList.add(value)
+      document.documentElement.classList.replace( 
+        value === 'dark' 
+          ? 'light' 
+          : 'dark', 
+      value)
     }
 
   }, [value])
@@ -20,6 +22,7 @@ function App() {
   return (
     <Router>
       <Navbar />
+      
     </Router>
   )
 }
