@@ -16,7 +16,7 @@ interface AnchorLink extends BaseLink {
 }
 
 interface ButtonLink extends BaseLink {
-  onClick?: () => void
+  parentMethod?: () => void
   type: 'button'
 }
 

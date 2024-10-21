@@ -23,10 +23,10 @@ const IconLink = (props: Link) => {
   }
 
   if (props.type === 'button') {
-    const { onClick } = props;
+    const { parentMethod } = props;
 
     return (
-      <button aria-label={label} onClick={onClick} className={className}>
+      <button aria-label={label} onClick={parentMethod} className={className}>
         {children}
       </button>
     )

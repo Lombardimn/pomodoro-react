@@ -10,6 +10,7 @@ const Navbar = () => {
     { type: "anchor", label: "Registros", href: "/records", icon: "empty" },
     { type: "anchor", label: "Etiquetas", href: "/tags", icon: "empty" },
   ]
+
   const [open, setOpen] = useState<boolean>(false)
   const [ modalOpenConfig, setModalOpenConfig ] = useState<boolean>(false)
   const [ modalOpenHelp, setModalOpenHelp ] = useState<boolean>(false)
@@ -25,8 +26,8 @@ const Navbar = () => {
   }
 
   const modalButtons: ButtonLink[] = [
-    { type: "button", label: "Configuraciones", icon: "gear", onClick: handleModalConfiguration },
-    { type: "button", label: "Ayuda", icon: "question", onClick: handleModalhelp },
+    { type: "button", label: "Configuraciones", icon: "gear", parentMethod: handleModalConfiguration },
+    { type: "button", label: "Ayuda", icon: "question", parentMethod: handleModalhelp },
   ]
 
   const handleMenu = () => {
@@ -62,12 +63,12 @@ const Navbar = () => {
         <div className="flex justify-between items-center space-x-4">
           <section className="flex space-x-2">
             {
-              modalButtons.map(({ label, icon, onClick, type }, index) => (
+              modalButtons.map(({ label, icon, parentMethod, type }, index) => (
                 <IconLink
                   key={index}
                   type={type}
                   label={label}
-                  onClick={onClick}
+                  parentMethod={parentMethod}
                   icon={icon}
                   class=""
                 >
