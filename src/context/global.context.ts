@@ -6,7 +6,7 @@ interface GlobalContextType {
 }
 
 export const GlobalContext = createContext<GlobalContextType>({
-  value: null,
+  value: '',
   setValue: () => {}
 })
 

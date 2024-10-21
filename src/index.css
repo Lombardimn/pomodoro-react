@@ -5,7 +5,7 @@
 
 @layer base {
   body {
-    @apply bg-background-dark;
+    @apply bg-background-light dark:bg-background-dark;
     box-sizing: border-box;
     height: 100vh;
   }

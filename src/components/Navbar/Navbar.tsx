@@ -1,23 +1,33 @@
 import { AnchorLink, ButtonLink } from "@/models"
-import { Icon, IconLink } from "@/components"
+import { Icon, IconLink, ThemeToggle } from "@/components"
 import { useState } from "react"
-import { ThemeToggle } from "../ThemeToggle/ThemeToggle"
-
-const textLinks: AnchorLink[] = [
-  { type: "anchor", label: "Temporizador", href: "/", icon: "empty" },
-  { type: "anchor", label: "Hoy", href: "/today", icon: "empty" },
-  { type: "anchor", label: "Tareas", href: "/tasks", icon: "empty" },
-  { type: "anchor", label: "Registros", href: "/records", icon: "empty" },
-  { type: "anchor", label: "Etiquetas", href: "/tags", icon: "empty" },
-]
-
-const modalButtons: ButtonLink[] = [
-  { type: "button", label: "Configuraciones", icon: "gear", onClick: () => {console.log("Configuraciones")} },
-  { type: "button", label: "Ayuda", icon: "question", onClick: () => {console.log("Ayuda")} },
-]
 
 const Navbar = () => {
+  const textLinks: AnchorLink[] = [
+    { type: "anchor", label: "Temporizador", href: "/", icon: "empty" },
+    { type: "anchor", label: "Hoy", href: "/today", icon: "empty" },
+    { type: "anchor", label: "Tareas", href: "/tasks", icon: "empty" },
+    { type: "anchor", label: "Registros", href: "/records", icon: "empty" },
+    { type: "anchor", label: "Etiquetas", href: "/tags", icon: "empty" },
+  ]
   const [open, setOpen] = useState<boolean>(false)
+  const [ modalOpenConfig, setModalOpenConfig ] = useState<boolean>(false)
+  const [ modalOpenHelp, setModalOpenHelp ] = useState<boolean>(false)
+
+  const handleModalConfiguration = () => {
+    setModalOpenConfig(!modalOpenConfig)
+    console.log(modalOpenConfig)
+  }
+
+  const handleModalhelp = () => {
+    setModalOpenHelp(!modalOpenHelp)
+    console.log(modalOpenHelp)
+  }
+
+  const modalButtons: ButtonLink[] = [
+    { type: "button", label: "Configuraciones", icon: "gear", onClick: handleModalConfiguration },
+    { type: "button", label: "Ayuda", icon: "question", onClick: handleModalhelp },
+  ]
 
   const handleMenu = () => {
     setOpen(!open)
@@ -81,7 +91,7 @@ const Navbar = () => {
             </section>
           </div>
 
-          <section className={open ? "absolute top-16 left-0 border-b border-b-text-dark/15 shadow-lg w-full flex flex-col justify-between items-left py-2 space-y-1" : "hidden"}>
+          <section className={open ? "absolute w-full top-16 left-0 pt-1 pb-6 space-y-1 rounded-b-xl flex flex-col justify-between items-left shadow-lg border-b border-b-text-dark/15 bg-background-light dark:bg-background-dark" : "hidden"}>
             {
               textLinks.map(({ label, href, active, type, icon }, index) => (
                 <IconLink
@@ -91,10 +101,10 @@ const Navbar = () => {
                   label={label}
                   href={href}
                   active={active}
-                  class="py-2 pl-3 pr-4 w-full border-l-4 border-transparent hover:bg-background-light/20 hover:border-l-4 hover:border-text-dark/40" />
+                  class="py-2 pl-3 pr-4 w-full border-l-4 border-transparent hover:border-l-4 hover:border-background-dark/50 hover:bg-background-dark/10 dark:hover:bg-background-light/20 dark:hover:border-text-dark/40" />
               ))
             }
-            <div className="pt-4 pr-6 flex justify-end items-center">
+            <div className="pt-4 pr-6 flex justify-end items-center border-t dark:border-text-dark/5 border-text-light/5">
               <ThemeToggle />
             </div>
           </section>

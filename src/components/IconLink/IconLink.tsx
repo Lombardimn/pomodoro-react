@@ -16,7 +16,7 @@ const IconLink = (props: Link) => {
         href={href}
         aria-label={label}
         aria-current={isActive ? 'page' : false}
-        className={ className + (isActive ? 'border-l-4 !border-hover-dark' : 'border-transparent')}>
+        className={ className + (isActive ? 'border-l-4 !border-hover-light dark:border-hover-dark' : 'border-transparent')}>
         {label}
       </a>
     )
