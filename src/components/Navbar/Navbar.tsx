@@ -92,7 +92,7 @@ const Navbar = () => {
             </section>
           </div>
 
-          <section className={open ? "absolute w-full top-16 left-0 pt-1 pb-6 space-y-1 rounded-b-xl flex flex-col justify-between items-left shadow-lg border-b border-b-text-dark/15 bg-background-light dark:bg-background-dark" : "hidden"}>
+          <section className={open ? "absolute z-10 w-full top-16 left-0 pt-1 pb-6 space-y-1 rounded-b-xl flex flex-col justify-between items-left shadow-lg border-b border-b-text-dark/15 bg-background-light dark:bg-background-dark" : "hidden"}>
             {
               textLinks.map(({ label, href, active, type, icon }, index) => (
                 <IconLink

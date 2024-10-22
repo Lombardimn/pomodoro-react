@@ -1,6 +1,5 @@
-import { Icon, IconLink } from "@/components"
+import { Icon, IconLink, Tooltip } from "@/components"
 import { ButtonLink } from "@/models"
-
 
 
 const TimerControls = () => {
@@ -11,37 +10,39 @@ const TimerControls = () => {
   const actionButtons: ButtonLink[] = [
     { type: "button",
       label: "Haz clic para cambiar a un temporizador infinito.",
-      icon: "gear",
+      icon: "infinity",
       parentMethod: TimerDisplay
     },
     { type: "button", 
       label: "Haga clic para desactivar los pomodoros de inicio automático.",
-      icon: "question",
+      icon: "repeat",
       parentMethod: TimerDisplay
     },
     { type: "button", 
       label: "0 pomodoros, pausa larga después de 1 pomodoro.",
-      icon: "question",
+      icon: "circle",
       parentMethod: TimerDisplay
     }
   ]
 
   return (
-    <section>
+    <section className="flex items-center justify-center gap-4 my-6 border border-blue-800">
       {
         actionButtons.map(({ type, label, icon, parentMethod }, index) => (
-          <IconLink
+          <Tooltip
             key={index}
-            type={type}
-            label={label}
-            icon={icon}
-            parentMethod={parentMethod}
+            position="tooltip-bottom"
+            content={label}
           >
-            <Icon
+            <IconLink
+              type={type}
+              label={label}
               icon={icon}
-              color="currentColor"
-              size="24"/>
-          </IconLink>
+              parentMethod={parentMethod}
+            >
+              <Icon icon={icon} color="currentColor" size="32" />
+            </IconLink>
+          </Tooltip>
         ))
       }
     </section>

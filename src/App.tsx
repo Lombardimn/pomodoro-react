@@ -26,7 +26,6 @@ function App() {
       <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark border border-red-400">
         <PomodoroTimer />
       </main>
-      
     </Router>
   )
 }

@@ -9,5 +9,22 @@
     box-sizing: border-box;
     height: 100vh;
   }
+}
 
+@layer components {
+  .tooltip-top {
+    @apply transform -translate-y-10 !block
+  }
+
+  .tooltip-bottom {
+    @apply  transform translate-y-12 !block
+  }
+
+  .tooltip-arrowTop {
+    @apply w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-t-[12px] border-t-text-light absolute -bottom-2 left-[calc(50%-12px)]
+  }
+
+  .tooltip-arrowBottom {
+    @apply w-0 h-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[12px] border-b-text-light absolute -top-2 left-[calc(50%-12px)]
+  }
 }
