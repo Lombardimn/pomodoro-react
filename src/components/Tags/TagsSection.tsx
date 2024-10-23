@@ -1,9 +1,9 @@
 const TagsSection = () => {
 
   return (
-    <div>
+    <section id="tags">
       TagsSection
-    </div>
+    </section>
   )
 }
 

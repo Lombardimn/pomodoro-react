@@ -2,13 +2,11 @@ import { NotesSection, TagsSection, TimerControls, TimerDisplay } from "@/compon
 
 const PomodoroTimer = () => {
   return (
-    <div>
-      <div>
-        <TimerControls />
-        <TimerDisplay />
-        <NotesSection />
-        <TagsSection />
-      </div> 
+    <div id="timer-container">
+      <TimerControls />
+      <TimerDisplay />
+      <NotesSection />
+      <TagsSection />
     </div>
   )
 }

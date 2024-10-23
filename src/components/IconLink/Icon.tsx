@@ -15,9 +15,11 @@ const Icon = ({ icon, color = 'currentColor', size, gradient, class: className }
       fill={gradient ? `url(#${gradientId})` : color}
       stroke={gradient ? `url(#${gradientId})` : color}
       className={className}
+      focusable='false'
     >
       {iconPath}
     </svg>
+
   )
 }
 

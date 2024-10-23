@@ -25,6 +25,9 @@ export default {
           dark: '#D3A9FA',
         }
       },
+      fontSize: {
+        xxs: ['.5rem', '.75rem']
+      }
     },
   },
   plugins: [],

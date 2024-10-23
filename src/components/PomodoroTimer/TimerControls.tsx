@@ -17,16 +17,17 @@ const TimerControls = () => {
       label: "Haga clic para desactivar los pomodoros de inicio automático.",
       icon: "repeat",
       parentMethod: TimerDisplay
-    },
-    { type: "button", 
-      label: "0 pomodoros, pausa larga después de 1 pomodoro.",
-      icon: "circle",
-      parentMethod: TimerDisplay
     }
   ]
 
+    // { type: "button", 
+    //   label: "0 pomodoros, pausa larga después de 1 pomodoro.",
+    //   icon: "circle",
+    //   parentMethod: TimerDisplay
+    // }
+
   return (
-    <section className="flex items-center justify-center gap-4 my-6 border border-blue-800">
+    <section id='settings' className="flex items-center justify-center gap-4 my-4 text-text-light dark:text-text-dark">
       {
         actionButtons.map(({ type, label, icon, parentMethod }, index) => (
           <Tooltip
@@ -40,11 +41,21 @@ const TimerControls = () => {
               icon={icon}
               parentMethod={parentMethod}
             >
-              <Icon icon={icon} color="currentColor" size="32" />
+              <Icon icon={icon} color="currentColor" size="24" />
             </IconLink>
           </Tooltip>
         ))
       }
+      <Tooltip
+        position="tooltip-bottom"
+        content="0 pomodoros, pausa larga después de 1 pomodoro."
+      >
+        <button onClick={TimerDisplay} className="w-6 h-6 rounded-full flex items-center justify-center bg-background-dark/20 dark:bg-background-light/20 border-2 border-solid border-background-dark dark:border-background-light">
+          <span className="text-text-light dark:text-text-dark text-sm font-semibold leading-none">
+            {2}
+          </span>
+        </button>
+      </Tooltip>
     </section>
   )
 }

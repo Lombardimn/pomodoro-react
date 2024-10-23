@@ -23,7 +23,7 @@ const Tooltip = ({ position, content, children }: TooltipProps) => {
       className="flex flex-col items-center justify-center relative gap-5">
       {children} 
       <div
-        className={'w-40 text-sm font-normal bg-background-dark text-text-dark text-center rounded-lg p-1 border border-solid border-background-dark absolute transition ease-in-out duration-300 hidden ' + (
+        className={'w-60 text-sm font-normal bg-background-dark dark:bg-background-light text-text-dark dark:text-text-light text-center rounded-lg p-1 border border-solid border-background-dark dark:border-background-light absolute transition ease-in-out duration-600 hidden ' + (
           showTooltip 
             ? position 
             : 'hidden'
