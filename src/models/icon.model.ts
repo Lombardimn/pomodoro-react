@@ -6,6 +6,7 @@ interface IconProps {
   size?: string
   gradient?: boolean
   class?: string
+  viewBox?: string
 }
 
 

@@ -1,4 +1,3 @@
 export * from './PomodoroTimer';
-export * from './TimerControls';
-export * from './TImerDisplay/Timer';
+export * from './TimerControl/TimerControls';
 export * from './TImerDisplay/TimerDisplay';

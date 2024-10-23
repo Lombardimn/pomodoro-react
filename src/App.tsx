@@ -23,7 +23,7 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark border border-red-400">
+      <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
         <PomodoroTimer />
       </main>
     </Router>
