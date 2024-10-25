@@ -1,24 +1,26 @@
 import { Navbar, PomodoroTimer } from "@/components"
 import { BrowserRouter as Router } from "react-router-dom"
 import { useGlobalContext } from "@/context"
+import { useLocalStorage } from "@/Hooks"
+import { EmptyLocalStorage, LocalStorageProps } from "@/models"
 import { useEffect } from "react"
 
 function App() {
   const { value } = useGlobalContext()
+  const { storedData } = useLocalStorage()
 
   useEffect(() => {
-    const result = value ? value : localStorage.getItem("theme")
+    const result: LocalStorageProps = storedData() ?? EmptyLocalStorage
 
-    if (result) {
-      localStorage.setItem("theme", result)
+    if (result.theme) {
       document.documentElement.classList.replace( 
-        result === 'dark'
+        result.theme === 'dark'
           ? 'light' 
           : 'dark', 
-      result)
+      result.theme)
     }
 
-  }, [value])
+  }, [value, storedData])
 
   return (
     <Router>

@@ -1,12 +1,14 @@
 import { useGlobalContext } from "@/context"
 import { Icon } from "@/components"
+import { useLocalStorage } from "@/Hooks"
 
 const ThemeToggle = () => {
   const { value, setValue } = useGlobalContext()
+  const { saveData } = useLocalStorage()
 
   const handleTheme = () => {
     const newTheme = value === "dark" ? "light" : "dark"
-    localStorage.setItem("theme", newTheme)
+    saveData({ theme: newTheme })
     setValue(newTheme)
   }
 
