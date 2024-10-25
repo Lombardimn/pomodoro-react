@@ -5,12 +5,12 @@ interface GlobalContextType {
   setValue: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const GlobalContext = createContext<GlobalContextType>({
+const GlobalContext = createContext<GlobalContextType>({
   value: '',
   setValue: () => {}
 })
 
-export const useGlobalContext = () => {
+const useGlobalContext = () => {
   const context = useContext(GlobalContext)
 
   if (!context.value && context.value !== '') {
@@ -19,3 +19,5 @@ export const useGlobalContext = () => {
 
   return context
 }
+
+export { GlobalContext, useGlobalContext }
