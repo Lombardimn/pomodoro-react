@@ -9,7 +9,7 @@ const IconLink = (props: Link) => {
     const { href, active } = props
     const isActive = active !== undefined 
       ? active 
-      : location.pathname === href || (href !== '/' && location.pathname.startsWith(href))
+      : location.pathname === href || (href !== '/timer' && location.pathname.startsWith(href))
 
     return (
       <a 

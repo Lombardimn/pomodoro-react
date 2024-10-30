@@ -1,11 +1,13 @@
-import { Navbar, PomodoroTimer } from "@/components"
-import { BrowserRouter as Router } from "react-router-dom"
+import { EmptyLocalStorage, LocalStorageProps } from "@/models"
+import { ReactNode, useEffect } from "react"
 import { useGlobalContext } from "@/context"
 import { useLocalStorage } from "@/Hooks"
-import { EmptyLocalStorage, LocalStorageProps } from "@/models"
-import { useEffect } from "react"
 
-function App() {
+interface AppProps {
+  children: ReactNode
+}
+
+function App( { children }: AppProps ) {
   const { value } = useGlobalContext()
   const { storedData } = useLocalStorage()
 
@@ -23,12 +25,9 @@ function App() {
   }, [value, storedData])
 
   return (
-    <Router>
-      <Navbar />
-      <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
-        <PomodoroTimer />
-      </main>
-    </Router>
+    <>
+      {children}
+    </>
   )
 }
 
