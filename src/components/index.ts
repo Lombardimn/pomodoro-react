@@ -3,6 +3,7 @@ export * from './IconLink/IconLink';
 export * from './Modal/context/modal.context';
 export * from './Modal/context/modal.provider';
 export * from './Modal/Modal';
+export * from './Modal/PreferenceModal';
 export * from './Navbar/Navbar';
 export * from './Notes/NotesSection';
 export * from './PomodoroTimer/PomodoroTimer';

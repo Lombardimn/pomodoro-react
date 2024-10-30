@@ -1,5 +1,5 @@
 import { AnchorLink, ButtonLink } from "@/models"
-import { Icon, IconLink, ThemeToggle } from "@/components"
+import { Icon, IconLink, Modal, PreferenceModal, ThemeToggle, useModalContext } from "@/components"
 import { useState } from "react"
 
 const Navbar = () => {
@@ -12,22 +12,15 @@ const Navbar = () => {
   ]
 
   const [open, setOpen] = useState<boolean>(false)
-  const [ modalOpenConfig, setModalOpenConfig ] = useState<boolean>(false)
-  const [ modalOpenHelp, setModalOpenHelp ] = useState<boolean>(false)
+  const { setState } = useModalContext()
 
-  const handleModalConfiguration = () => {
-    setModalOpenConfig(!modalOpenConfig)
-    console.log(modalOpenConfig)
-  }
-
-  const handleModalhelp = () => {
-    setModalOpenHelp(!modalOpenHelp)
-    console.log(modalOpenHelp)
+  const handleOpenModal = (id : string) => {
+    setState(id)
   }
 
   const modalButtons: ButtonLink[] = [
-    { type: "button", label: "Configuraciones", icon: "gear", parentMethod: handleModalConfiguration },
-    { type: "button", label: "Ayuda", icon: "question", parentMethod: handleModalhelp },
+    { type: "button", label: "Configuraciones", icon: "gear", parentMethod: () => handleOpenModal('modalSettings') },
+    { type: "button", label: "Ayuda", icon: "question", parentMethod: () => handleOpenModal('modalSupport') },
   ]
 
   const handleMenu = () => {
@@ -87,6 +80,22 @@ const Navbar = () => {
             }
           </section>
 
+          <Modal title="Configuraciones" id="modalSettings" className="absolute top-20 p-3 z-50 w-auto bg-background-light rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light transition ease-in-out duration-300">
+            <button onClick={() =>handleOpenModal('modalPreferences')}>Administrar Preferencias</button>
+            <button onClick={() => console.log('Estado')}>Administrar Estados</button>
+            <button onClick={() => console.log('Datos')}>Gestión de Datos</button>
+          </Modal>
+
+          <Modal title="Soporte" id="modalSupport" className="absolute top-20 p-3 z-50 w-auto bg-background-light rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light transition ease-in-out duration-300">
+            <h2>¿Necesita ayuda?</h2>
+            <button onClick={() =>console.log('FQA')}>Preguntas Frecuentes</button>
+            <button onClick={() =>console.log('Contacto')}>Contactanos</button>
+          </Modal>
+
+          <Modal title="Preferencias" id="modalPreferences" className="absolute top-20 p-3 z-50 w-auto bg-background-light rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light transition ease-in-out duration-300">
+            <PreferenceModal />
+          </Modal>
+
           <section className="md:hidden bg-background-light/15 rounded-lg p-1 border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light">
               <button onClick={handleMenu} className="flex justify-between items-center">
                 <span hidden>Menu</span>
@@ -98,7 +107,7 @@ const Navbar = () => {
             </section>
           </div>
 
-          <section className={open ? "absolute z-10 w-full top-16 left-0 pt-1 pb-6 space-y-1 rounded-b-xl flex flex-col justify-between items-left shadow-lg border-b border-b-text-dark/15 bg-background-light dark:bg-background-dark" : "hidden"}>
+          <section className={open ? "absolute z-20 w-full top-16 left-0 pt-1 pb-6 space-y-1 rounded-b-xl flex flex-col justify-between items-left shadow-lg border-b border-b-text-dark/15 bg-background-light dark:bg-background-dark" : "hidden"}>
             {
               textLinks.map(({ label, href, active, type, icon }, index) => (
                 <IconLink

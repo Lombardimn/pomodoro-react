@@ -1,21 +1,61 @@
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
-import { useModalContext } from "@/components"
+import { Icon, IconLink, useModalContext } from "@/components"
 
-const Modal = ({children}: {children: React.ReactNode}) => {
+interface ModalComponentProps {
+  title: string
+  id: string
+  className?: string
+  children: React.ReactNode
+}
+
+const eventListener = 'keydown'
+
+const Modal = ({children , className, title, id}: ModalComponentProps) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const { state, setState } = useModalContext()
-  const closeModal = () => setState(false)
   const modalRoot = document.getElementById('modal')
+  
+  const closeModal = () => setState(null)
+  
+  const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
+  }
 
-  if (!state || !modalRoot) return null
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setState(null)
+      }
+    }
 
+    if (state === id) {
+      document.addEventListener(eventListener, handleEsc)
+    }
+
+    return () => document.removeEventListener(eventListener, handleEsc)
+  }, [setState, state, id])
+
+  if (state !== id || !modalRoot) return null
 
   return createPortal(
-    <div className="overlay" onClick={closeModal}>
-      <div className="modal" ref={modalRef} role="presentation">
-        {children}
-        <button className="close" onClick={closeModal} aria-label="Cerrar">X</button>
+    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center" onClick={closeModal}>
+      <div className={className} ref={modalRef} onClick={handleContentClick}>
+        <div className="flex justify-between gap-5 items-start">
+          <div className="flex flex-col space-y-2 items-start">
+            <h2 className="text-xl font-semibold mb-4">{title}</h2>
+            {children}
+          </div>
+          <IconLink
+            type="button"
+            label="Cerrar"
+            icon="empty"
+            parentMethod={closeModal}
+            class="rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light"
+          >
+            <Icon icon="close" color="currentColor" size="24" />
+          </IconLink>
+        </div>
       </div>
     </div>,
     modalRoot

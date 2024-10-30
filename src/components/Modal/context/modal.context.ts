@@ -1,10 +1,10 @@
 import { createContext, useContext } from "react"
 
 const ModalContext = createContext<{
-  state: boolean
-  setState: React.Dispatch<React.SetStateAction<boolean>>
+  state: string | null
+  setState: React.Dispatch<React.SetStateAction<string | null>>
 }>({
-  state: false,
+  state: null,
   setState: () => null
 })
 
