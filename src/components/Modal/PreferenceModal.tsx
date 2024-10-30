@@ -1,11 +1,40 @@
 import { Icon, ThemeToggle } from "@/components"
+import { useGlobalContext } from "@/context"
+import { useLocalStorage } from "@/Hooks"
 
-const lengthOptions: number = 120
+const timingPomodoro: number = 120
 const shortBreak: number = 30
 const longBreak: number = 60
 const lengthPomodoro: number = 8
 
 const PreferenceModal = () => {
+  const { value, setValue } = useGlobalContext()
+  const { saveData, data } = useLocalStorage()
+
+  const handleCycle = () => {
+    const flagCycle = value.cycleEnabled === true ? false : true
+    saveData({ cycleEnabled: flagCycle })
+    setValue(prevValue => ({
+      ...prevValue,
+      cycleEnabled: flagCycle
+    }))
+  }
+
+  const handleChangeData = (key: string) => (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newValue = parseInt(event.target.value)
+    const updatedPomodoro = {
+      ...value.pomodoro,
+      [key]: newValue,
+    }
+
+    setValue((prevValue) => ({
+      ...prevValue,
+      pomodoro: updatedPomodoro
+    }))
+
+    saveData({ pomodoro: value.pomodoro })
+  }
+
   return (
     <>
       <div>
@@ -19,9 +48,15 @@ const PreferenceModal = () => {
         </div>
         <div>
           <label htmlFor='pomodoroLength'>Duración del Pomodoro</label>
-          <select name="pomodoroLength" id="pomodoroLength" tabIndex={0}>
+          <select 
+            name="pomodoroLength"
+            id="pomodoroLength"
+            tabIndex={0}
+            onChange={handleChangeData('timing')}
+            value={data.pomodoro.timing}
+          >
             {
-              [...Array(lengthOptions)].map((_, index) => (
+              [...Array(timingPomodoro)].map((_, index) => (
                 <option key={index} value={index + 1}>
                  {index + 1} minutos
                 </option>
@@ -32,7 +67,7 @@ const PreferenceModal = () => {
 
         <div>
           <label htmlFor="pomodorosCycles">Inicio automático de pomodoros</label>
-          <ThemeToggle id="pomodorosCycles" />
+          <ThemeToggle id="pomodorosCycles" parentMethod={handleCycle} watch="cycle" iconOn="close" iconOff="check" />
           <p>Otro pomodoro no comenzará automáticamente después de un largo descanso.</p>
         </div>
       </section>
@@ -44,8 +79,13 @@ const PreferenceModal = () => {
         </div>
 
         <div>
-          <label htmlFor='breakLength'>Duración del descanso</label>
-          <select name="breakLength" id="breakLength">
+          <label htmlFor='shortBreak'>Duración del descanso</label>
+          <select 
+            name="shortBreak"
+            id="shortBreak"
+            onChange={handleChangeData('shortBreak')}
+            value={data.pomodoro.shortBreak}
+          >
             {
               [...Array(shortBreak)].map((_, index) => (
                 <option key={index} value={index + 1}>
@@ -57,8 +97,13 @@ const PreferenceModal = () => {
         </div>
 
         <div>
-          <label htmlFor='breakLength'>Descanso de larga duración</label>
-          <select name="breakLength" id="breakLength">
+          <label htmlFor='longBreak'>Descanso de larga duración</label>
+          <select
+            name="longBreak"
+            id="longBreak"
+            onChange={handleChangeData('longBreak')}
+            value={data.pomodoro.longBreak}
+          >
             {
               [...Array(longBreak)].map((_, index) => (
                 <option key={index} value={index + 1}>
@@ -70,8 +115,13 @@ const PreferenceModal = () => {
         </div>
 
         <div>
-          <label htmlFor='breakLength'>Largo descanso después</label>
-          <select name="breakLength" id="breakLength">
+          <label htmlFor='lengthPomodoro'>Largo descanso después</label>
+          <select
+            name="lengthPomodoro"
+            id="lengthPomodoro"
+            onChange={handleChangeData('length')}
+            value={data.pomodoro.length}
+          >
             {
               [...Array(lengthPomodoro)].map((_, index) => (
                 <option key={index} value={index + 1}>

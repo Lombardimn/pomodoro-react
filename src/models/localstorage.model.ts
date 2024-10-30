@@ -1,21 +1,27 @@
-import { TagProps, TaskProps, NoteProps } from "@/models"
+import { TagProps, TaskProps, NoteProps, PomodoroProps } from "@/models"
 
 interface LocalStorageProps {
-  title: string
+  cycleEnabled: boolean
   theme: string
   tasks: TaskProps[]
   tags: TagProps[]
   notes: NoteProps[]
-  pomodoro: string
+  pomodoro: PomodoroProps
 }
 
 const EmptyLocalStorage: LocalStorageProps = {
-  title: '',
+  cycleEnabled: false,
   theme: '',
   tasks: [],
   tags: [],
   notes: [],
-  pomodoro: ''
+  pomodoro: {
+    id: 0,
+    timing: 0,
+    shortBreak: 0,
+    longBreak: 0,
+    length: 0
+  }
 }
 
 export { EmptyLocalStorage }

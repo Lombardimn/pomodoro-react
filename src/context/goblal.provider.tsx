@@ -1,14 +1,13 @@
 import { ReactNode, useState } from "react"
 import { GlobalContext } from "@/context"
-
-const EmptyGlobalState: string = ''
+import { EmptyLocalStorage, LocalStorageProps } from "@/models"
 
 interface GlobalProps {
   children: ReactNode
 }
 
 const GlobalProvider = ({ children }: GlobalProps) => {
-  const [value, setValue] = useState<string>(EmptyGlobalState)
+  const [value, setValue] = useState<LocalStorageProps>(EmptyLocalStorage)
 
   return (
     <GlobalContext.Provider value={{ value, setValue }}>{children}</GlobalContext.Provider>

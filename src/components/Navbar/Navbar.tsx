@@ -1,6 +1,8 @@
-import { AnchorLink, ButtonLink } from "@/models"
 import { Icon, IconLink, Modal, PreferenceModal, ThemeToggle, useModalContext } from "@/components"
+import { AnchorLink, ButtonLink } from "@/models"
 import { useState } from "react"
+import { useLocalStorage } from "@/Hooks"
+import { useGlobalContext } from "@/context"
 
 const Navbar = () => {
   const textLinks: AnchorLink[] = [
@@ -13,6 +15,8 @@ const Navbar = () => {
 
   const [open, setOpen] = useState<boolean>(false)
   const { setState } = useModalContext()
+  const { saveData } = useLocalStorage()
+  const { value, setValue } = useGlobalContext()
 
   const handleOpenModal = (id : string) => {
     setState(id)
@@ -25,6 +29,17 @@ const Navbar = () => {
 
   const handleMenu = () => {
     setOpen(!open)
+  }
+
+  const handleTheme = () => {
+    const newTheme = value.theme === "dark" ? "light" : "dark"
+    
+    saveData({ theme: newTheme })
+    
+    setValue(prevValue => ({
+      ...prevValue,
+      theme: newTheme
+    }))
   }
 
   return (
@@ -121,7 +136,7 @@ const Navbar = () => {
               ))
             }
             <div className="pt-4 pr-6 flex justify-end items-center border-t dark:border-text-dark/5 border-text-light/5">
-              <ThemeToggle />
+              <ThemeToggle id="scheme" parentMethod={handleTheme} watch="theme" iconOn="sun" iconOff="moon"/>
             </div>
           </section>
       </nav>
