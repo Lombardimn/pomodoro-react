@@ -1,10 +1,10 @@
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import { ModalContext } from "@/components"
 
 const EmptyModalState: string | null = null
 
 interface ModalProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const ModalProvider = ({children}: ModalProps) => {

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { MouseEvent, ReactNode, useEffect, useRef } from "react"
 import { createPortal } from "react-dom"
 import { Icon, IconLink, useModalContext } from "@/components"
 
@@ -6,7 +6,7 @@ interface ModalComponentProps {
   title: string
   id: string
   className?: string
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const eventListener = 'keydown'
@@ -18,7 +18,7 @@ const Modal = ({children , className, title, id}: ModalComponentProps) => {
   
   const closeModal = () => setState(null)
   
-  const handleContentClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleContentClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation()
   }
 
@@ -39,7 +39,7 @@ const Modal = ({children , className, title, id}: ModalComponentProps) => {
   if (state !== id || !modalRoot) return null
 
   return createPortal(
-    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center" onClick={closeModal}>
+    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transform transition-all duration-300 z-50" onClick={closeModal}>
       <div className={className} ref={modalRef} onClick={handleContentClick}>
         <div className="flex justify-between gap-5 items-start">
           <div className="flex flex-col space-y-2 items-start">

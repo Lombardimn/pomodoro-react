@@ -1,8 +1,8 @@
-import { createContext, useContext } from "react"
+import { createContext, Dispatch, SetStateAction, useContext } from "react"
 
 const ModalContext = createContext<{
   state: string | null
-  setState: React.Dispatch<React.SetStateAction<string | null>>
+  setState: Dispatch<SetStateAction<string | null>>
 }>({
   state: null,
   setState: () => null

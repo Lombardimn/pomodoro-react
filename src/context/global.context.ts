@@ -1,9 +1,9 @@
 import { EmptyLocalStorage, LocalStorageProps } from "@/models"
-import { createContext, useContext } from "react"
+import { createContext, Dispatch, SetStateAction, useContext } from "react"
 
 interface GlobalContextType {
   value: LocalStorageProps
-  setValue: React.Dispatch<React.SetStateAction<LocalStorageProps>>
+  setValue: Dispatch<SetStateAction<LocalStorageProps>>
 }
 
 const GlobalContext = createContext<GlobalContextType>({

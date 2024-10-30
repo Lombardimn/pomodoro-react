@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 
 type Position = 'tooltip-top' | 'tooltip-bottom'
 
 interface TooltipProps {
   position: Position
   content: string
-  children?: React.ReactNode
+  children?: ReactNode
   class?: string
 }
 

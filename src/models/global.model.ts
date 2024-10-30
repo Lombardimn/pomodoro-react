@@ -1,8 +1,9 @@
 import { LocalStorageProps } from "@/models"
+import { Dispatch, SetStateAction } from "react"
 
 interface GlobalContextType {
   value: LocalStorageProps
-  setValue: React.Dispatch<React.SetStateAction<string>>
+  setValue: Dispatch<SetStateAction<string>>
 }
 
 export type { GlobalContextType }

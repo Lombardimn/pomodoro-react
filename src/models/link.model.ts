@@ -1,4 +1,5 @@
 import { iconPaths } from "@/utils"
+import { ReactNode } from "react"
 
 type Class = string | undefined
 
@@ -6,7 +7,7 @@ interface BaseLink {
   label: string
   class?: Class
   icon: keyof typeof iconPaths
-  children?: React.ReactNode
+  children?: ReactNode
 }
 
 interface AnchorLink extends BaseLink {

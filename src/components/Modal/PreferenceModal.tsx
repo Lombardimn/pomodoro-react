@@ -1,6 +1,7 @@
 import { Icon, ThemeToggle } from "@/components"
 import { useGlobalContext } from "@/context"
 import { useLocalStorage } from "@/Hooks"
+import { ChangeEvent } from "react"
 
 const timingPomodoro: number = 120
 const shortBreak: number = 30
@@ -20,7 +21,7 @@ const PreferenceModal = () => {
     }))
   }
 
-  const handleChangeData = (key: string) => (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeData = (key: string) => (event: ChangeEvent<HTMLSelectElement>) => {
     const newValue = parseInt(event.target.value)
     const updatedPomodoro = {
       ...value.pomodoro,
