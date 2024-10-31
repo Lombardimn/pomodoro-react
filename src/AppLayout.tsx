@@ -29,7 +29,6 @@ const AppLayout = ({ children }: Props) => {
     <>
       <Navbar />
       {children}
-      <p>Footer</p>
     </>
   )
 }

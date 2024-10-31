@@ -5,13 +5,14 @@ import { useEffect, useState } from "react"
 
 interface ThemeToggleProps {
   id?: string
+  description?: string
   parentMethod?: () => void
   iconOn: keyof typeof iconPaths
   iconOff: keyof typeof iconPaths
   watch: 'theme' | 'cycle';
 }
 
-const ThemeToggle = ( { id, parentMethod, iconOn, iconOff, watch }: ThemeToggleProps) => {
+const ThemeToggle = ( { id, description, parentMethod, iconOn, iconOff, watch }: ThemeToggleProps) => {
   const [flagClass, setFlagClass] = useState<boolean>(false);
   const { value } = useGlobalContext()
 
@@ -29,7 +30,7 @@ const ThemeToggle = ( { id, parentMethod, iconOn, iconOff, watch }: ThemeToggleP
 
   return (
     <button id={id} onClick={parentMethod} aria-pressed='false' className="flex justify-between items-center border-2 rounded-full p-0 cursor-pointer dark:bg-background-light/15 bg-background-dark/15 hover:border-hover-light dark:hover:border-hover-dark">
-    <span className="sr-only">Tema Oscuro</span>
+    <span className="sr-only">{description}</span>
     <span 
       className={flagClass === true ? (classToggle + ' ' +'before:translate-x-full'): classToggle }
     >
