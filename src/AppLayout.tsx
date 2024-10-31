@@ -1,13 +1,14 @@
 import { EmptyLocalStorage, LocalStorageProps } from "@/models"
-import { ReactNode, useEffect } from "react"
 import { useGlobalContext } from "@/context"
+import { ReactNode, useEffect } from "react"
 import { useLocalStorage } from "@/Hooks"
+import { Navbar } from "@/components"
 
-interface AppProps {
+interface Props {
   children: ReactNode
 }
 
-function App( { children }: AppProps ) {
+const AppLayout = ({ children }: Props) => {
   const { value } = useGlobalContext()
   const { storedData } = useLocalStorage()
 
@@ -26,9 +27,11 @@ function App( { children }: AppProps ) {
 
   return (
     <>
+      <Navbar />
       {children}
+      <p>Footer</p>
     </>
   )
 }
 
-export default App
+export { AppLayout }

@@ -1,6 +1,12 @@
+import { AppLayout } from "@/AppLayout"
+
 const TodayPage = () => {
   return (
-    <div>TodayPage</div>
+    <AppLayout>
+    <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+      <div>Today Page</div>
+    </main>
+  </AppLayout>
   )
 }
 

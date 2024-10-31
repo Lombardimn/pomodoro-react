@@ -10,8 +10,8 @@ const Navbar = () => {
   const textLinks: AnchorLink[] = [
     { type: "anchor", label: "Temporizador", href: "/", icon: "empty" },
     { type: "anchor", label: "Hoy", href: "/today", icon: "empty" },
-    { type: "anchor", label: "Tareas", href: "/tasks", icon: "empty" },
-    { type: "anchor", label: "Registros", href: "/records", icon: "empty" },
+    { type: "anchor", label: "Tareas", href: "/task", icon: "empty" },
+    { type: "anchor", label: "Registros", href: "/entries", icon: "empty" },
     { type: "anchor", label: "Etiquetas", href: "/tags", icon: "empty" },
   ]
 
