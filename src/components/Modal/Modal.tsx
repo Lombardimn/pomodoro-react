@@ -39,22 +39,20 @@ const Modal = ({children , className, title, id}: ModalComponentProps) => {
   if (state !== id || !modalRoot) return null
 
   return createPortal(
-    <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transform transition-all duration-300 z-50" onClick={closeModal}>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity z-50 overflow-y-auto" onClick={closeModal}>
       <div className={className} ref={modalRef} onClick={handleContentClick}>
-        <div className="flex justify-between gap-5 items-start">
-          <div className="flex flex-col space-y-2 items-start">
-            <h2 className="text-xl font-semibold mb-4">{title}</h2>
+        <IconLink
+          type="button"
+          label="Cerrar"
+          icon="empty"
+          parentMethod={closeModal}
+          class="absolute top-2 right-2 ml-2 rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light"
+        >
+          <Icon icon="close" color="currentColor" size="24" />
+        </IconLink>
+        <h2 className="text-2xl font-semibold mb-4 text-center mt-6">{title}</h2>
+        <div>
             {children}
-          </div>
-          <IconLink
-            type="button"
-            label="Cerrar"
-            icon="empty"
-            parentMethod={closeModal}
-            class="rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light"
-          >
-            <Icon icon="close" color="currentColor" size="24" />
-          </IconLink>
         </div>
       </div>
     </div>,
