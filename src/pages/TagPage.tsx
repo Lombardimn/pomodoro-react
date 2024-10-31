@@ -11,3 +11,9 @@ const TagPage = () => {
 }
 
 export { TagPage }
+
+// ! gravedad
+// * importante
+// TODO: por hacer
+// ? pregunta
+// normal

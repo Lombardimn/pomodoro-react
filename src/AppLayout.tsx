@@ -28,7 +28,9 @@ const AppLayout = ({ children }: Props) => {
   return (
     <>
       <Navbar />
-      {children}
+      <main className="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
+        {children}
+      </main>
     </>
   )
 }
