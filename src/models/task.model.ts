@@ -1,14 +1,30 @@
-import { NoteProps, TagProps } from "@/models"
+import { intTagProps } from "@/models"
+import { DBSchema } from "idb"
 
 interface TaskProps {
-  id: number
-  title: string
+  id: string
+  note: string
+  order: number
+  plannedCount: number
   status: string
-  priority: number
-  tags: TagProps[]
-  notes: NoteProps[]
-  completed: boolean
+  tags: intTagProps[]
+  today: number
+  todayOrder: number
   createdAt: string
+  completed: boolean
 }
 
-export type { TaskProps }
+interface MyDB extends DBSchema {
+  tasks: {
+    value: TaskProps
+    key: string
+    indexes: {
+      'by-status': string
+    }
+  }
+}
+
+export type {
+  TaskProps,
+  MyDB
+}

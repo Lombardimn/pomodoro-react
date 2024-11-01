@@ -1,5 +1,5 @@
 interface NoteProps {
-  id: number
+  id: string
   content: string
 }
 

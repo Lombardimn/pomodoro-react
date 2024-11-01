@@ -59,7 +59,7 @@ const Navbar = () => {
   }, [setOpen, open])
 
   return (
-    <header className="px-6 dark:bg-background-light/5 dark:text-text-dark bg-background-light text-text-light font-medium shadow-md">
+    <header className="px-6 dark:bg-background-light/5 dark:text-text-dark bg-background-light text-text-light font-medium shadow-sm">
       <nav className="h-16 flex justify-between items-center">
         <section>
           <a href="/">

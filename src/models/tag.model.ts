@@ -1,9 +1,12 @@
 interface TagProps {
-  id: number
-  tag: string
-  background?: string
-  pin?: string
-  color?: string
+  id: string
+  enable: boolean
+  color: string
+  label: string
 }
 
-export type { TagProps }
+interface intTagProps {
+  id: string
+}
+
+export type { TagProps, intTagProps }
