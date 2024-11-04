@@ -10,11 +10,11 @@ const NotesSection = () => {
   }
 
   const notas: NoteProps[] = [
-    { id: 1, content: "Nota 1" },
-    { id: 2, content: "Nota 2" },
-    { id: 3, content: "Nota 3" },
-    { id: 4, content: "Nota 4" },
-    { id: 5, content: "Nota 5" },
+    { id: "1", content: "Nota 1" },
+    { id: "2", content: "Nota 2" },
+    { id: "3", content: "Nota 3" },
+    { id: "4", content: "Nota 4" },
+    { id: "5", content: "Nota 5" },
   ]
 
   return (
