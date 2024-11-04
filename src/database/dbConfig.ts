@@ -1,3 +1,4 @@
+import { upgradeDatabase } from "@/database"
 import { IDBPDatabase, openDB } from "idb"
 import { MyDB } from "@/models"
 
@@ -9,11 +10,7 @@ const initDB = async () => {
     1,
     {
       upgrade(db) {
-        const store = db.createObjectStore('tasks', {
-          keyPath: 'id',
-        })
-
-        store.createIndex('by-status', 'status')
+        upgradeDatabase(db)
       }
     }
   )

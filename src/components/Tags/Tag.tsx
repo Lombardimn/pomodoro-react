@@ -1,6 +1,6 @@
 import { TagProps } from "@/models"
 
-const Tag = ({ id, tag, background, color, pin }: TagProps) => {
+const Tag = ({ id, name, background, color, pin }: TagProps) => {
   return (
     <div 
       key={id}
@@ -9,7 +9,7 @@ const Tag = ({ id, tag, background, color, pin }: TagProps) => {
       <div className="absolute flex-shrink-0 flex items-center justify-center">
         <span className={"h-1.5 w-1.5 rounded-full text-current " + (pin ? pin : '')} aria-hidden="true"></span>
       </div>
-      <span className="block truncate ml-3 text-current">{tag}</span>
+      <span className="block truncate ml-3 text-current">{name}</span>
     </div>
   )
 }

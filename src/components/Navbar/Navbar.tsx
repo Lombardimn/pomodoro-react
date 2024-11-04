@@ -137,7 +137,7 @@ const Navbar = () => {
             </div>
           </Modal>
 
-          <Modal title="Preferencias" id="modalPreferences" className="absolute top-20 p-3 mx-3 z-50 w-auto bg-background-light rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light transition ease-in-out duration-300">
+          <Modal title="Preferencias" id="modalPreferences" className="absolute top-20 p-3 mx-3 z-50 w-auto bg-background-light rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light transition-all ease-in-out duration-300">
             <PreferenceModal />
           </Modal>
 

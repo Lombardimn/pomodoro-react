@@ -1,21 +1,58 @@
-import { AppLayout } from "@/AppLayout"
-import { IconLink, Modal, useModalContext } from "@/components"
+import { Icon, IconLink, Modal, Tag, TimerControls, useModalContext } from "@/components"
 import { deleteTask, getTasks } from "@/database"
+import { useEffect, useState } from "react"
+import { useLocalStorage } from "@/Hooks"
+import { AppLayout } from "@/AppLayout"
 import { TaskProps } from "@/models"
 import { FormTask } from "@/pages"
-import { useEffect, useState } from "react"
+import { CustomDropdown, Option } from "@/components/Selector/CustomDropdown"
 
 const TodayPage = () => {
   const { setState } = useModalContext()
+  const { data } = useLocalStorage()
   const [tasks, setTasks] = useState<TaskProps[]>([])
   const [selectedTask, setSelectedTask] = useState<TaskProps | null>(null)
+
+  // Obtener los totales del dia
+  const { pomodoro } = data
+  const sessionDuration  = pomodoro.timing
+  const totalSessions = tasks.reduce((acc, task) => acc + task.plannedCount, 0)
+  const totalMinutes = totalSessions * sessionDuration
+  
+  // Formatear los totales
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+  const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+
+  const dropdownOptions = [
+    {
+      id: '1',
+      label: 'Hoy',
+      color: 'bg-blue-800'
+    },
+    {
+      id: '2',
+      label: 'Ayer',
+      color: 'bg-green-800'
+    }
+  ]
+
+  const handleSelectDropdown = (id: Partial<Option>) => {
+    console.log(id)
+  }
+
 
   useEffect(() => {
     fetchTasks()
   }, [])
 
   const handleOpenModal = (id: string) => {
-    setSelectedTask(tasks[0])
+    setSelectedTask(null)
+    setState(id)
+  }
+
+  const handleOpenModalEdit = (id: string, task: TaskProps) => {
+    setSelectedTask(task)
     setState(id)
   }
 
@@ -63,27 +100,87 @@ const TodayPage = () => {
           </IconLink>
         </div>
       </section>
-
+  
       {
         tasks &&
-          <section className="mx-auto px-6 mt-6">
-            {tasks.map((task) => (
-              <li key={task.id}>
-                <p>{task.note}</p>
-                <p>{task.status}</p>
-                <p>{task.plannedCount}</p>
-                <p>{task.today}</p>
-                <p>{task.todayOrder}</p>
-                <p>{task.createdAt}</p>
-                <p>{task.completed}</p>
-                <button onClick={() => handleOpenModal('modalTask')}>Editar</button>
-                <button onClick={() => handleDelete(task.id)}>Borrar</button>
-              </li>
-            ))}
-          </section>
+          <>
+            <section className="mx-auto px-6 mt-6">
+              <ul className="flex justify-between text-sm ">
+                <li>Concretado: 00:00 / 0 sesiones</li>
+                <li>Estimado: {formattedTime} / {totalSessions} sesiones</li>
+              </ul>
+              <div className="mt-1 w-full h-2 bg-gray-400 rounded flex justify-between">
+                <div className="bg-emerald-400 h-full rounded-l w-1/2"></div>
+                <div className="bg-rose-400 h-full rounded-r w-1/2"></div>
+              </div>
+            </section>
+
+            <section className="mx-auto px-6 mt-6">
+              <h3 className="text-md font-medium">La prioridad de hoy</h3>
+                {
+                  tasks.map((task, index) => {
+                    const pomodoroButtons = [
+                      {
+                        type: "button" as const,
+                        label: `Se han estimado ${task.plannedCount} pomodoros`,
+                        icon: 'clock' as const,
+                        parentMethod: () => {}
+                      }
+                    ]
+
+                    return (
+                      <div key ={task.id} className="bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 border mt-2 rounded-md">
+                        <ul className="divide-gray-100 dark:divide-gray-700 relative z-0 divide-y">
+                          <li key={`${index}-${task.id}`} className="flex flex-col p-2">
+                            <div className="flex justify-between items-center text-gray-500">
+                              <div className="flex items-center gap-2">
+                                <IconLink
+                                  type="button"
+                                  label="Iniciar"
+                                  parentMethod={() => {}}
+                                  icon="empty"
+                                  class="w-9 h-9 rounded-full flex justify-center items-center disabled:text-gray-200 text-gray-400 hover:text-purple-500 disabled:hover:text-gray-200"
+                                >
+                                  <Icon icon="play" color="currentColor" size="24" viewBox="0 0 384 512" />
+                                </IconLink>
+                                <ul className="flex gap-3">
+                                  {
+                                    task.tags.map((tag, index) => (
+                                      <li key={`${index}-${tag.id}`}>
+                                        <Tag
+                                          id={tag.id}
+                                          name="Tag 1"
+                                          background="bg-red-600/10"
+                                          pin="bg-red-600"
+                                          color="text-red-600"
+                                          label="red"
+                                          enable={false}
+                                        />
+                                      </li>
+                                    ))
+                                  }
+                                </ul>
+                              </div>
+                              <div className="flex items-center gap-2 mx-1">
+                                <TimerControls objects={pomodoroButtons} flag={false} />
+
+                                <CustomDropdown options={dropdownOptions} onSelect={handleSelectDropdown} />
+
+                                <button onClick={() => handleOpenModalEdit('modalTask', task)}>Editar</button>
+                                <button onClick={() => handleDelete(task.id)}>Borrar</button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    )
+                  })
+                }
+            </section>
+          </>
       }
 
-      <Modal id="modalTask" title="Crear una nueva tarea" className="absolute top-20 py-3 z-50 w-auto bg-background-light rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light transition ease-in-out duration-300">
+      <Modal id="modalTask" title="Gestionar Tarea" className="absolute top-20 p-3 mx-3 z-50 w-auto bg-background-light rounded-lg border-2 border-transparent hover:border-2 hover:outline-0 hover:border-hover-light transition-all ease-in-out duration-300">
         <FormTask onSave={handleSave} task={selectedTask} />
       </Modal>
     </AppLayout>
