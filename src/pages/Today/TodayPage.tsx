@@ -1,11 +1,10 @@
-import { Icon, IconLink, Modal, Tag, TimerControls, useModalContext } from "@/components"
+import { DropdownMenu, Icon, IconLink, Modal, Tag, TimerControls, useModalContext } from "@/components"
 import { deleteTask, getTasks } from "@/database"
+import { Option, TaskProps } from "@/models"
 import { useEffect, useState } from "react"
 import { useLocalStorage } from "@/Hooks"
 import { AppLayout } from "@/AppLayout"
-import { TaskProps } from "@/models"
 import { FormTask } from "@/pages"
-import { CustomDropdown, Option } from "@/components/Selector/CustomDropdown"
 
 const TodayPage = () => {
   const { setState } = useModalContext()
@@ -24,23 +23,11 @@ const TodayPage = () => {
   const minutes = totalMinutes % 60
   const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
 
-  const dropdownOptions = [
-    {
-      id: '1',
-      label: 'Hoy',
-      color: 'bg-blue-800'
-    },
-    {
-      id: '2',
-      label: 'Ayer',
-      color: 'bg-green-800'
-    }
+  const options: Option[] = [
+    { label: 'Up next', color: 'rgb(62, 193, 254)' },
+    { label: 'In progress', color: 'rgb(193, 77, 255)' },
+    { label: 'Done', color: 'rgb(83, 243, 190)' },
   ]
-
-  const handleSelectDropdown = (id: Partial<Option>) => {
-    console.log(id)
-  }
-
 
   useEffect(() => {
     fetchTasks()
@@ -131,8 +118,8 @@ const TodayPage = () => {
                     return (
                       <div key ={task.id} className="bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 border mt-2 rounded-md">
                         <ul className="divide-gray-100 dark:divide-gray-700 relative z-0 divide-y">
-                          <li key={`${index}-${task.id}`} className="flex flex-col p-2">
-                            <div className="flex justify-between items-center text-gray-500">
+                          <li key={`${index}-${task.id}`} className="flex flex-col px-2 py-3">
+                            <div className="flex justify-between items-center text-gray-500 gap-2">
                               <div className="flex items-center gap-2">
                                 <IconLink
                                   type="button"
@@ -164,10 +151,14 @@ const TodayPage = () => {
                               <div className="flex items-center gap-2 mx-1">
                                 <TimerControls objects={pomodoroButtons} flag={false} />
 
-                                <CustomDropdown options={dropdownOptions} onSelect={handleSelectDropdown} />
+                                <DropdownMenu options={options} />
 
-                                <button onClick={() => handleOpenModalEdit('modalTask', task)}>Editar</button>
-                                <button onClick={() => handleDelete(task.id)}>Borrar</button>
+                                <button onClick={() => handleOpenModalEdit('modalTask', task)}>
+                                  <Icon icon="pencil" color="currentColor" size="24" />
+                                </button>
+                                <button onClick={() => handleDelete(task.id)}>
+                                  <Icon icon="trash" color="currentColor" size="24" />
+                                </button>
                               </div>
                             </div>
                           </li>
