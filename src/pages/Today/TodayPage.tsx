@@ -24,9 +24,9 @@ const TodayPage = () => {
   const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
 
   const options: Option[] = [
-    { label: 'Up next', color: 'rgb(62, 193, 254)' },
-    { label: 'In progress', color: 'rgb(193, 77, 255)' },
-    { label: 'Done', color: 'rgb(83, 243, 190)' },
+    { label: 'Proxíma', color: 'rgb(62, 193, 254)' },
+    { label: 'Activa', color: 'rgb(193, 77, 255)' },
+    { label: 'Listo', color: 'rgb(83, 243, 190)' },
   ]
 
   useEffect(() => {
@@ -118,7 +118,7 @@ const TodayPage = () => {
                     return (
                       <div key ={task.id} className="bg-white dark:bg-gray-800 border-gray-100 dark:border-gray-700 border mt-2 rounded-md">
                         <ul className="divide-gray-100 dark:divide-gray-700 relative z-0 divide-y">
-                          <li key={`${index}-${task.id}`} className="flex flex-col px-2 py-3">
+                          <li key={`${index}-${task.id}`} className="flex flex-col py-3">
                             <div className="flex justify-between items-center text-gray-500 gap-2">
                               <div className="flex items-center gap-2">
                                 <IconLink
@@ -130,6 +130,7 @@ const TodayPage = () => {
                                 >
                                   <Icon icon="play" color="currentColor" size="24" viewBox="0 0 384 512" />
                                 </IconLink>
+                                <Icon icon="note" color="currentColor" size="24"/>
                                 <ul className="flex gap-3">
                                   {
                                     task.tags.map((tag, index) => (

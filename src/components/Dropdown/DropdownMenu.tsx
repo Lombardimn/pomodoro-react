@@ -12,8 +12,8 @@ const DropdownMenu = ({ options }: DropdownMenuProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [menuPosition, setMenuPosition] = useState<PositionProps>({ top: 0, left: 0 })
   const [selectedOption, setSelectedOption] = useState<Option>({
-    label: 'Up next',
-    color: 'rgb(62, 193, 254)',
+    label: 'Status',
+    color: 'rgb(211, 211, 211)',
   })
 
   const handleToggleDropdown = () => {
