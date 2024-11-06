@@ -1,5 +1,4 @@
 import { intTagProps } from "@/models"
-import { DBSchema } from "idb"
 
 interface TaskProps {
   id: string
@@ -14,17 +13,4 @@ interface TaskProps {
   completed: boolean
 }
 
-interface MyDB extends DBSchema {
-  tasks: {
-    value: TaskProps
-    key: string
-    indexes: {
-      'by-status': string
-    }
-  }
-}
-
-export type {
-  TaskProps,
-  MyDB
-}
+export type { TaskProps }

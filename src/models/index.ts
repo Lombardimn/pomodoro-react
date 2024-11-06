@@ -5,5 +5,6 @@ export * from './localstorage.model';
 export * from './note.model';
 export * from './options.model';
 export * from './pomodoro.model';
+export * from './schemaDB.model';
 export * from './tag.model';
 export * from './task.model';
